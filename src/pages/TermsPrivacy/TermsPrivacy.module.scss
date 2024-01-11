@@ -1,0 +1,21 @@
+.container {
+  padding: 110px 10% 50px 10%;
+  font-family: 'Kanit', 'Jost', serif;
+  font-size: 1.1rem;
+
+  .additional {
+    padding: 25px 0;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  li {
+    p {
+      font-weight: 300;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.container {
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 75px 20px 0 20px;
+
+  @media screen and (max-width: 550px) {
+      height: 240px;
+  }
+
+  .text {
+    font-size: 3rem;
+    text-align: center;
+    font-family: 'Kanit', 'Roboto', serif;
+
+    @media screen and (max-width: 750px) {
+        font-size: 2.4rem;
+    }
+
+    @media screen and (max-width: 550px) {
+        font-size: 2rem;
+    }
+
+    div {
+      font-size: 2rem;
+      font-weight: 300;
+
+      @media screen and (max-width: 550px) {
+          font-size: 1.25rem;
+      }
+    }
+  }
+}

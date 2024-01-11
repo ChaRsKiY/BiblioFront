@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  flex-direction: column;
+  padding: 0 30px;
+
+  .needhelp {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #646464;
+  }
+
+  .block {
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(98, 98, 98, 0.24);
+    min-height: 150px;
+    min-width: 350px;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    @media screen and (max-width: 540px) {
+      min-width: 0;
+    }
+
+    .text {
+      text-align: center;
+      font-size: 1.3rem;
+      font-family: 'Jua', 'Jost', serif;
+      color: #3b3b3b;
+
+      @media screen and (max-width: 540px) {
+        min-width: 0;
+      }
+    }
+  }
+}

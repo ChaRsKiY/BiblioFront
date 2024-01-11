@@ -1,0 +1,72 @@
+.home-banner {
+  animation: show 0.8s ease-in-out;
+  left: 0;
+  width: 200px;
+  overflow: hidden;
+  background-color: rgba(80, 80, 80, 0.71);
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  position: fixed;
+  top: 15%;
+  z-index: 1;
+  padding: 25px 25px 25px 20px;
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Kanit', 'Jost', serif;
+  display: flex;
+  flex-direction: column;
+  
+  @media screen and (max-width: 550px) {
+    width: 160px;
+    font-size: 0.9rem;
+    padding: 20px 20px 20px 15px;
+  }
+
+  div {
+    img {
+      width: 22px;
+      height: 22px;
+      align-self: center;
+      position: absolute;
+      right: 8%;
+      top: 10%;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      @media screen and (max-width: 550px) {
+        width: 19px;
+        height: 19px;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    border: 0;
+    font-size: 0.9rem;
+    background-color: #E7734F;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 5px;
+    font-family: 'Kanit', 'Jost', serif;
+
+    @media screen and (max-width: 550px) {
+      font-size: 0.8rem;
+      padding: 8px;
+    }
+  }
+
+  @keyframes show {
+    0% {
+      left: -250px;
+    }
+    100% {
+      left: 0;
+    }
+  }
+}

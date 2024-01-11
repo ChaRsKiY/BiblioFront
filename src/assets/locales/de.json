@@ -1,0 +1,30 @@
+{
+  "translation": {
+    "Home": "Home",
+    "Books": "Bücher",
+    "LogIn": "Einloggen",
+    "Search": "Suchen",
+    "BannerTitle": "LESEN SIE IHRE BÜCHER KOSTENLOS",
+    "BannerText": "Willkommen in unserer großen Gemeinschaft. Mehr als 50.000 eBooks kostenlos zum Lesen.",
+    "Trending": "Trendige Bücher",
+    "Popular": "Beliebte Bücher",
+    "Genres": "Genres",
+    "InfoBlockTitle": "Entdecken Sie verschiedene Genres",
+    "InfoBlockText": "Tauchen Sie ein in eine reiche Auswahl an Genres, von packenden Thrillern und herzerwärmenden Liebesromanen bis hin zu erweiterten Science-Fiction-Geschichten und informativen Sachbüchern.",
+    "RightsReserved": "Alle Rechte vorbehalten",
+    "Terms": "Bedingungen",
+    "Privacy": "Datenschutz",
+    "SignIn": "Einloggen",
+    "E-mail": "E-Mail",
+    "Password": "Passwort",
+    "ForgotPass": "Passwort vergessen",
+    "DontHaveAcc": "Kein Konto haben",
+    "SignUp": "Registrieren",
+    "SignInGoogle": "Oder anmelden mit",
+    "Username": "Benutzername",
+    "PassRepeat": "Passwort wiederholen",
+    "AlreadyHaveAnAccount": "Bereits einen Account haben",
+    "PageNotFoundText": "Hoppla! Seite nicht gefunden.",
+    "BackHome": "Zurück zur Startseite"
+  }
+}
