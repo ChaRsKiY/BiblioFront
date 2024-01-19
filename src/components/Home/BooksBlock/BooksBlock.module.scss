@@ -36,7 +36,7 @@
     text-decoration: none;
     font-family: 'Jua', 'Jost', serif;
     align-self: center;
-    padding-top: 40px;
+    padding-top: 20px;
     transition: 0.3s ease-in-out;
 
     &:hover {
@@ -47,10 +47,11 @@
   .genres {
     display: flex;
     text-align: center;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     text-transform: uppercase;
+    cursor: pointer;
 
     @media screen and (max-width: 560px) {
       flex-wrap: wrap;
@@ -58,14 +59,31 @@
     }
 
     div {
+      position: relative;
       width: 100%;
       margin: 0 20px;
       height: 200px;
       display: flex;
       align-items: center;
+      overflow: hidden;
       justify-content: center;
-      background-position: center;
-      background-size: cover;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: inherit;
+        background-position: center;
+        background-size: cover;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      &:hover::before {
+        transform: scale(1.1);
+      }
 
       @media screen and (max-width: 825px) {
         margin: 0 10px;
@@ -104,44 +122,53 @@
 
   .books {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 
     @media screen and (max-width: 750px) {
         width: 100%;
         flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: center;
     }
 
     div {
       display: flex;
       flex-direction: column;
-      align-self: center;
       font-family: 'Kanit', serif;
       font-weight: 300;
       font-size: 1.1rem;
+      align-items: center;
+      width: 16%;
+      margin: 10px 0;
+      cursor: pointer;
+
+      div {
+        margin: 0;
+        width: 100%;
+      }
 
       @media screen and (max-width: 750px) {
-        width: 140px;
-        font-size: 1rem;
+        width: 27%;
+        font-size: 0.9rem;
       }
 
       @media screen and (max-width: 560px) {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
       }
 
       @media screen and (max-width: 460px) {
-        font-size: 0.9rem;
+        width: 40%;
+        font-size: 0.8rem;
       }
     }
 
     img {
-      width: 85%;
-      height: 85%;
-      align-self: center;
+      width: 100%;
       padding-top: 10px;
       padding-bottom: 4px;
+
+      @media screen and (max-width: 750px) {
+        width: 85%;
+      }
     }
   }
 }

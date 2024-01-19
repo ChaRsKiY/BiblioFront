@@ -8,9 +8,31 @@ import {useTranslation} from "react-i18next";
 import CloseIcon from '../assets/images/close.png'
 import {Link} from "react-router-dom";
 import {useTheme} from "../utils/contexts/ThemeProvider";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {SERVER_URL} from "../data/urls";
 
 const Home = ({isBannerVisible, hideBanner}) => {
-    const sortedTrendingBooks = books.sort((a, b) => b.rating - a.rating);
+    const [books, setBooks] = useState({
+        trendingBooks: [],
+        popularBooks: []
+    })
+
+    const getTrendingAndPopularBooks = async () => {
+        try {
+            const resultPopular = await axios.get(`${SERVER_URL}Book/popular`);
+            setBooks((prev) => ({ ...prev, popularBooks: resultPopular.data }));
+
+            const resultTrending = await axios.get(`${SERVER_URL}Book/trending`);
+            setBooks((prev) => ({ ...prev, trendingBooks: resultTrending.data }));
+        } catch (error) {
+            console.error('Error fetching trending and popular books:', error);
+        }
+    }
+
+    useEffect(() => {
+        getTrendingAndPopularBooks()
+    }, []);
 
     const { i18n, t } = useTranslation();
 
@@ -32,8 +54,8 @@ const Home = ({isBannerVisible, hideBanner}) => {
 
             <Banner/>
 
-            <BooksBlock title={t('Trending')} books={sortedTrendingBooks} category="trend"/>
-            <BooksBlock title={t('Popular')} books={sortedTrendingBooks} category="popular"/>
+            <BooksBlock title={t('Trending')} books={books.trendingBooks} category="trend" />
+            <BooksBlock title={t('Popular')} books={books.popularBooks} category="popular" />
 
             <InfoBlock/>
 

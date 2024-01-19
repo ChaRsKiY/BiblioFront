@@ -1,37 +1,59 @@
 .container {
-  height: 300px;
-  background-position: center;
-  background-size: cover;
+  margin-top: 75px;
+  height: 250px;
   color: white;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 75px 20px 0 20px;
-
-  @media screen and (max-width: 550px) {
-      height: 240px;
+  
+  @media screen and (max-width: 530px) {
+    height: 230px;
   }
 
-  .text {
-    font-size: 3rem;
+  @media screen and (max-width: 400px) {
+    height: 190px;
+  }
+
+  .image {
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    z-index: -1;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     text-align: center;
-    font-family: 'Kanit', 'Roboto', serif;
+    padding: 0 20px;
 
-    @media screen and (max-width: 750px) {
-        font-size: 2.4rem;
+    .title {
+      font-family: 'Kanit', 'Roboto', serif;
+      font-size: 2.25rem;
+      font-weight: bold;
+
+      @media screen and (max-width: 630px) {
+        font-size: 1.65rem;
+      }
+
+      @media screen and (max-width: 400px) {
+        font-size: 1.2rem;
+      }
     }
 
-    @media screen and (max-width: 550px) {
-        font-size: 2rem;
-    }
+    .desc {
+      font-size: 1.5rem;
+      margin-top: 10px;
 
-    div {
-      font-size: 2rem;
-      font-weight: 300;
+      @media screen and (max-width: 630px) {
+        font-size: 1.2rem;
+      }
 
-      @media screen and (max-width: 550px) {
-          font-size: 1.25rem;
+      @media screen and (max-width: 400px) {
+        font-size: 1rem;
       }
     }
   }

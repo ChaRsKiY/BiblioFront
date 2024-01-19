@@ -1,12 +1,17 @@
 import styles from './SearchForm.module.scss';
 import {useTranslation} from "react-i18next";
+import searchQueryStore from "../../../stores/SearchQueryStore";
 
 const SearchForm = () => {
     const { t } = useTranslation();
 
+    const handleSearchChanged = (e) => {
+        searchQueryStore.setSearchQuery(e.target.value)
+    }
+
     return (
         <div className={styles.search}>
-            <input type="text" className={styles.search__input} placeholder={t('Search')} />
+            <input type="text" className={styles.search__input} placeholder={t('Search')} onChange={handleSearchChanged} />
                 <button className={styles.search__button}>
                     <svg className={styles.search__icon} aria-hidden="true" viewBox="0 0 24 24">
                         <g>

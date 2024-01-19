@@ -34,9 +34,9 @@ const Header = ({ styles, isBurgerMenuActive, setIsBurgerMenuActive, location, n
                 <Link to='/' className={location.pathname === "/" ? styles.active : ''}>{t('Home')}</Link>
                 <Link to='/books' className={location.pathname === "/books" ? styles.active : ''}>{t('Books')}</Link>
 
-                {user && <div className={styles.additional}>
+                {user &&
                     <Link to='/profile' className={location.pathname === "/profile" ? styles.active : ''}>{t('Profile')}</Link>
-                </div>}
+                }
             </div>
 
                     <div className={styles.log_in_button}>

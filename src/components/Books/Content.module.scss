@@ -1,0 +1,163 @@
+.container {
+ padding: 25px;
+ display: flex;
+ flex-direction: column;
+ width: 80%;
+
+ .bottomcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+
+  button {
+   width: 45px;
+   height: 45px;
+   border-radius: 50%;
+   border: 0;
+   background-color: #E7734F;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   &:disabled {
+    background-color: #b7623d;
+   }
+
+   img {
+    width: 15px;
+   }
+
+   .left {
+     transform: rotateY(180deg);
+   }
+  }
+
+  .page {
+   margin: 0 15px;
+   color: #646464;
+   font-size: 1.3rem;
+  }
+ }
+
+ .nothingfound {
+  text-align: center;
+  padding: 20px 0 50px 0;
+  font-size: 1.35rem;
+  font-family: 'Jua', 'Jost', serif;
+  color: #cb512b;
+ }
+
+ .booksfound {
+  text-align: center;
+  padding: 20px 0 10px 0;
+  font-family: 'Kanit', 'Roboto', serif;
+  color: #646464;
+
+  span {
+   color: #cb512b;
+   font-weight: bold;
+  }
+ }
+
+ .books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  .bookcontainer {
+   display: flex;
+   flex-direction: column;
+   background-color: #F5F5F5;
+   padding: 15px;
+   border-radius: 20px;
+   width: 20%;
+   margin: 15px 0;
+   font-family: 'Jua', 'Jost', serif;
+   text-align: center;
+   font-weight: 300;
+   justify-content: space-around;
+   cursor: pointer;
+
+   @media screen and (max-width: 1020px) {
+     width: 25%;
+   }
+
+   .booktitle {
+     font-size: 1.2rem;
+     padding: 7px 0;
+     font-weight: 500;
+     color: #484848;
+
+     @media screen and (max-width: 1020px) {
+      font-size: 1.1rem;
+     }
+   }
+
+   .bookbio {
+     color: #818181;
+     font-weight: 400;
+
+     @media screen and (max-width: 1020px) {
+      font-size: 0.9rem;
+     }
+   }
+
+   .doublecontainer {
+    display: flex;
+    padding: 5px 0;
+    justify-content: space-around;
+    color: #959595;
+    font-family: 'Jua', 'Jost', serif;
+    @media screen and (max-width: 1020px) {
+     font-size: 0.9rem;
+    }
+   }
+
+   .bookauthor {
+    color: #959595;
+
+    @media screen and (max-width: 1020px) {
+     font-size: 0.9rem;
+    }
+
+    span {
+     color: #616161;
+    }
+   }
+
+   img {
+    width: 100%;
+    border-radius: 15px;
+   }
+  }
+ }
+
+ .topcontainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  color: #707070;
+  font-family: 'Kanit', 'Roboto', serif;
+  font-size: 1.1rem;
+
+  .title {
+   font-size: 1.6rem;
+   padding-right: 20px;
+  }
+
+  .sortby {
+   text-align: center;
+  }
+
+  select {
+   outline: none;
+   margin-left: 10px;
+   padding: 5px;
+   border-radius: 10px;
+   border: 2px solid #a2a2a2;
+   font-family: 'Jua', 'Jost', serif;
+  }
+ }
+}

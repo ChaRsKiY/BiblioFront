@@ -12,7 +12,8 @@ export const books = [
         downloadCounter: 1623,
         publicationDate: new Date(),
         year: 2017,
-        content: 'lorem ipsum'
+        content: 'lorem ipsum',
+        author: "Luise Fox"
     },
     {
         id: 2,
@@ -25,7 +26,8 @@ export const books = [
         downloadCounter: 1623,
         publicationDate: new Date(),
         year: 2017,
-        content: 'lorem ipsum'
+        content: 'lorem ipsum',
+        author: "Luise Fox"
     },
     {
         id: 3,
@@ -38,7 +40,8 @@ export const books = [
         downloadCounter: 1623,
         publicationDate: new Date(),
         year: 2017,
-        content: 'lorem ipsum'
+        content: 'lorem ipsum',
+        author: "Luise Fox"
     },
     {
         id: 4,
@@ -51,7 +54,8 @@ export const books = [
         downloadCounter: 1623,
         publicationDate: new Date(),
         year: 2017,
-        content: 'lorem ipsum'
+        content: 'lorem ipsum',
+        author: "Luise Fox"
     },
     {
         id: 5,
@@ -64,6 +68,7 @@ export const books = [
         downloadCounter: 1623,
         publicationDate: new Date(),
         year: 2017,
-        content: 'lorem ipsum'
+        content: 'lorem ipsum',
+        author: "Luise Fox"
     },
 ]

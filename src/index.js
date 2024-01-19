@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@fontsource/inter';
+
 
 import './assets/styles/index.scss';
 import './assets/styles/banners.scss';
@@ -19,6 +21,7 @@ import {ThemeProvider} from "./utils/contexts/ThemeProvider";
 import {Provider} from "mobx-react";
 import tokenStore from "./stores/TokenStore";
 import userStore from "./stores/UserStore";
+import searchQueryStore from "./stores/SearchQueryStore";
 
 i18n
     .use(initReactI18next)
@@ -45,7 +48,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
       <BrowserRouter>
-          <Provider tokenStore={tokenStore} userStore={userStore}>
+          <Provider tokenStore={tokenStore} userStore={userStore} searchQueryStore={searchQueryStore} >
               <ThemeProvider>
                 <App />
               </ThemeProvider>

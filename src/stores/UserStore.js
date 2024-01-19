@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import getUser from "../utils/getUser";
 import Cookies from "js-cookie";
+import globalLoaderStore from "./GlobalLoaderStore";
 
 class UserStore {
     user = null;
@@ -11,6 +12,8 @@ class UserStore {
 
     async initialize(token) {
         try {
+            globalLoaderStore.setIsLoading(true)
+
             const fetchedUser = await getUser(token);
 
             if (fetchedUser === 401) {
@@ -24,6 +27,8 @@ class UserStore {
                 Cookies.set("token", null, {expires: new Date(0)})
                 this.setUser(null)
             }
+        } finally {
+            globalLoaderStore.setIsLoading(false)
         }
     }
 

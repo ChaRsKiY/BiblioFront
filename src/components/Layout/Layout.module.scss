@@ -13,6 +13,14 @@
     display: flex;
     align-items: center;
 
+    a {
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        transform: translateY(3px);
+      }
+    }
+
     .active {
       position: relative;
 
@@ -86,6 +94,11 @@
 
     .burger_menu {
       cursor: pointer;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       img {
         width: 40px;

@@ -90,7 +90,6 @@ const Profile = () => {
               </div>
               <div className={styles.innercontainer}>
                   {currentPage === 0 && <Main styles={styles} userData={userData} t={t} theme={theme} fetch={fetch} />}
-                  <button onClick={() => send()}>Click!</button>
               </div>
           </div>
       </div>

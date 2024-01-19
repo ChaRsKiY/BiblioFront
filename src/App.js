@@ -1,10 +1,9 @@
 import Layout from "./components/Layout/Layout";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import Home from "./pages/Home";
 import Page404 from "./pages/Page404/Page404";
 import Login from "./pages/LoginRegistration/Login";
 import Register from "./pages/LoginRegistration/Register";
-import {useEffect, useState} from "react";
+import React, {Suspense, useEffect, useState} from "react";
 import Profile from "./pages/Profile/Profile";
 import Terms from "./pages/TermsPrivacy/Terms";
 import Privacy from "./pages/TermsPrivacy/Privacy";
@@ -13,24 +12,18 @@ import {observer} from "mobx-react";
 import userStore from "./stores/UserStore";
 import EmailConfirmation from "./pages/EmailConfirmation";
 import ForgetPass from "./pages/LoginRegistration/ForgetPass";
+import Books from "./pages/Books/Books";
+import Home from "./pages/Home";
+import CurrentBook from "./pages/CurrentBook/CurrentBook";
 import globalLoaderStore from "./stores/GlobalLoaderStore";
+import GlobalLoading from "./pages/GlobalLoader/GlobalLoading";
 
 const App = observer(() => {
     const [isBannerVisible, setIsBannerVisible] = useState(false)
 
     const {token} = tokenStore;
     const {user} = userStore;
-    const {isLoading} = globalLoaderStore;
-
-    useEffect(() => {
-        if (!token) {
-            const timer = setTimeout(() => {
-                setIsBannerVisible(true);
-            }, 6500);
-
-            return () => clearTimeout(timer);
-        }
-    }, []);
+    const { isLoading } = globalLoaderStore;
 
     const hideBanner = () => {
         setIsBannerVisible(false);
@@ -38,7 +31,6 @@ const App = observer(() => {
 
     useEffect(() => {
         userStore.updateUser(token);
-        globalLoaderStore.setIsLoading(false);
     }, [token]);
 
     useEffect(() => {
@@ -47,16 +39,26 @@ const App = observer(() => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!token) {
+            const timer = setTimeout(() => {
+                setIsBannerVisible(true);
+            }, 10000);
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
     if (isLoading) {
         return (
-            <div>Loading!!!</div>
+            <GlobalLoading/>
         )
     }
 
     return (
         <Routes>
             <Route path="/" element={
-                <Layout user={user} navigate={navigate}>
+                <Layout user={user} navigate={navigate} >
                     <Home isBannerVisible={isBannerVisible} hideBanner={hideBanner}/>
                 </Layout>
             }/>
@@ -85,6 +87,16 @@ const App = observer(() => {
             <Route path="/confirmation" element={
                 <Layout user={user} navigate={navigate}>
                     <EmailConfirmation />
+                </Layout>
+            }/>
+            <Route path="/books" element={
+                <Layout user={user} navigate={navigate}>
+                    <Books />
+                </Layout>
+            }/>
+            <Route path="/books/:bookId" element={
+                <Layout user={user} navigate={navigate}>
+                    <CurrentBook />
                 </Layout>
             }/>
             <Route path="/emailchangeconfirm" element={
