@@ -1,5 +1,4 @@
-import {genres} from '../../data/genres'
-import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 const Rating = ({ styles, setSelectedStars }) => {
     const rating = ["9-10", "7-8", "5-6", "3-4", "1-2"]
@@ -14,9 +13,11 @@ const Rating = ({ styles, setSelectedStars }) => {
         });
     }
 
+    const { t } = useTranslation()
+
     return (
         <div className={styles.addcontainer}>
-            <div className={styles.title}>Rating</div>
+            <div className={styles.title}>{t('Rating')}</div>
 
             {rating.map((el, key) => (
                 <div className={styles.content} key={key}>
@@ -27,6 +28,7 @@ const Rating = ({ styles, setSelectedStars }) => {
                     <div className={styles.text}>{el}</div>
                 </div>
             ))}
+
         </div>
     )
 }

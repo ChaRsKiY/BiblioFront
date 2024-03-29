@@ -91,7 +91,6 @@
       }
 
       @media screen and (max-width: 680px) {
-        margin: 0 8px;
         height: 120px;
       }
 
@@ -104,6 +103,7 @@
         font-family: 'Jua', serif;
         color: white;
         font-size: 1.8rem;
+        width: 100%;
 
         @media screen and (max-width: 825px) {
           font-size: 1.5rem;

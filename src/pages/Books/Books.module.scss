@@ -1,0 +1,10 @@
+.maincontainer {
+  display: flex;
+  padding-top: 75px;
+  @apply mb-16;
+
+  @media screen and (max-width: 630px) {
+    flex-direction: column;
+  }
+}
+

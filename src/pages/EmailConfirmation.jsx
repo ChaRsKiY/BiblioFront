@@ -1,5 +1,4 @@
 import axios from "axios";
-import {SERVER_URL} from "../data/urls";
 import {useEffect, useState} from "react";
 import styles from "./EmailConfirmation.module.scss"
 import Loader from "../components/Misc/Loader";
@@ -12,7 +11,7 @@ const EmailConfirmation = () => {
 
     const fetch = async (email, verificationCode) => {
         try {
-            const response = await axios.post(SERVER_URL + "User/verifyemail", { Email: email, VerificationCode: verificationCode })
+            const response = await axios.post("User/verifyemail", { Email: email, VerificationCode: verificationCode })
 
             if (response.status === 200) {
                 setText(t('YourAccountIsSuccesfullyVerified'))
@@ -33,6 +32,7 @@ const EmailConfirmation = () => {
     }
 
     useEffect(() => {
+        document.title = "Biblio - Email Confirmation"
         const url = new URL(window.location.href);
 
         const email = url.searchParams.get('email');

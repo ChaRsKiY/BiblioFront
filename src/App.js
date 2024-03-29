@@ -3,7 +3,7 @@ import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Page404 from "./pages/Page404/Page404";
 import Login from "./pages/LoginRegistration/Login";
 import Register from "./pages/LoginRegistration/Register";
-import React, {Suspense, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Profile from "./pages/Profile/Profile";
 import Terms from "./pages/TermsPrivacy/Terms";
 import Privacy from "./pages/TermsPrivacy/Privacy";
@@ -17,37 +17,26 @@ import Home from "./pages/Home";
 import CurrentBook from "./pages/CurrentBook/CurrentBook";
 import globalLoaderStore from "./stores/GlobalLoaderStore";
 import GlobalLoading from "./pages/GlobalLoader/GlobalLoading";
+import AddBookPage from "./pages/AddBook/AddBook";
+import AdminDashboardPage from "./pages/Admin/AdminDashboard";
+import AdminLayout from "./components/Admin/AdminLayout";
+import {useTheme} from "./utils/contexts/ThemeProvider";
+import AdminContentPage from "./pages/Admin/AdminContent";
+import AdminUsersPage from "./pages/Admin/AdminUsers";
+import AdminGeneralPage from "./pages/Admin/AdminGeneral";
+import {useColorScheme} from "@mui/joy";
+import EmailChangeConfirmation from "./pages/EmailChangeConfirmation";
 
 const App = observer(() => {
-    const [isBannerVisible, setIsBannerVisible] = useState(false)
-
     const {token} = tokenStore;
     const {user} = userStore;
     const { isLoading } = globalLoaderStore;
-
-    const hideBanner = () => {
-        setIsBannerVisible(false);
-    };
 
     useEffect(() => {
         userStore.updateUser(token);
     }, [token]);
 
-    useEffect(() => {
-        hideBanner();
-    }, [user]);
-
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!token) {
-            const timer = setTimeout(() => {
-                setIsBannerVisible(true);
-            }, 10000);
-
-            return () => clearTimeout(timer);
-        }
-    }, []);
 
     if (isLoading) {
         return (
@@ -55,11 +44,18 @@ const App = observer(() => {
         )
     }
 
+    const {theme} = useTheme()
+    const { setMode } = useColorScheme();
+
+    theme === "dark" ? document.body.className = "duration-300 bg-neutral-800" : document.body.className = "duration-300 bg-white"
+    setMode(theme === 'dark' ? 'dark' : 'light')
+
     return (
+        <div className={theme === "dark" ? "dark" : ""}>
         <Routes>
             <Route path="/" element={
                 <Layout user={user} navigate={navigate} >
-                    <Home isBannerVisible={isBannerVisible} hideBanner={hideBanner}/>
+                    <Home />
                 </Layout>
             }/>
             {user ? (
@@ -73,6 +69,32 @@ const App = observer(() => {
                             <Profile navigate={navigate}/>
                         </Layout>
                     }/>
+                    <Route path="/create-book" element={
+                        <Layout user={user} navigate={navigate}>
+                            <AddBookPage />
+                        </Layout>}
+                    />
+
+                    {user.isAdmin && (
+                        <>
+                            <Route path="/admin/dashboard" element={
+                                <AdminLayout>
+                                    <AdminDashboardPage />
+                                </AdminLayout>}/>
+                            <Route path="/admin/content" element={
+                                <AdminLayout>
+                                    <AdminContentPage />
+                                </AdminLayout>}/>
+                            <Route path="/admin/users" element={
+                                <AdminLayout>
+                                    <AdminUsersPage />
+                                </AdminLayout>}/>
+                            <Route path="/admin/general" element={
+                                <AdminLayout>
+                                    <AdminGeneralPage />
+                                </AdminLayout>}/>
+                        </>
+                    )}
                 </>
             ) : (
                 <>
@@ -81,6 +103,9 @@ const App = observer(() => {
                     <Route path="/profile" element={<Navigate to="/" replace />}/>
                     <Route path="/forgetpass" element={<ForgetPass navigate={navigate} />}/>
                     <Route path="/forgetpass/change" element={<ForgetPass navigate={navigate} />}/>
+                    <Route path="/create-book" element={
+                        <Navigate to="/" replace />}
+                    />
                 </>
             )}
 
@@ -101,7 +126,7 @@ const App = observer(() => {
             }/>
             <Route path="/emailchangeconfirm" element={
                 <Layout user={user} navigate={navigate}>
-                    <EmailConfirmation />
+                    <EmailChangeConfirmation />
                 </Layout>
             }/>
             <Route path="/terms" element={
@@ -116,6 +141,7 @@ const App = observer(() => {
             }/>
             <Route path="*" element={<Page404/>}/>
         </Routes>
+        </div>
     );
 })
 

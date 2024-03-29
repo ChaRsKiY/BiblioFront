@@ -1,10 +1,10 @@
 import styles from './Content.module.scss'
 import Book from "./Book";
-import Loader from "../Misc/Loader";
 import ArrowImg from '../../assets/images/pagearrow.png'
 import {AspectRatio, Card, Skeleton, Typography} from "@mui/joy";
+import {useTranslation} from "react-i18next";
 
-const Content = ({ books, page, setPage, totalPages, totalItems, setSort, genres, isBooksLoading, selectedGenres }) => {
+const Content = ({ books, page, setPage, totalPages, totalItems, setSort, genres, isBooksLoading, selectedGenres, sort }) => {
     const handleSortChanged = (e) => {
         setSort(e.target.value)
     }
@@ -26,14 +26,14 @@ const Content = ({ books, page, setPage, totalPages, totalItems, setSort, genres
                 const remainingGenresCount = formattedGenres.length - maxDisplayedGenres;
 
                 if (remainingGenresCount > 0) {
-                    return `${displayedGenres.join(', ')} and ${remainingGenresCount} more`;
+                    return `${displayedGenres.join(', ')} ${t('And')} ${remainingGenresCount} ${t('More')}`;
                 } else {
                     const lastGenre = displayedGenres.pop();
                     const joinedGenres = displayedGenres.join(', ');
-                    return `${joinedGenres} and ${lastGenre}`;
+                    return `${joinedGenres} ${t('And')} ${lastGenre}`;
                 }
             } else {
-                return "All genres";
+                return t("AllGenres");
             }
         }
 
@@ -42,20 +42,22 @@ const Content = ({ books, page, setPage, totalPages, totalItems, setSort, genres
 
     const components = [1,2,3,4,5,6,7,8]
 
+    const { t } = useTranslation()
+
   return (
       <div className={styles.container}>
           <div className={styles.topcontainer}>
               <div className={styles.title}>{genresToText()}</div>
-              <div className={styles.sortby}>Sort by:
-                  <select onChange={handleSortChanged} defaultValue="popularity">
-                      <option value="title">Title</option>
-                      <option value="author">Author</option>
-                      <option value="popularity">Popularity</option>
-                      <option value="rating">Rating</option>
+              <div className={styles.sortby}>{t('SortBy')}:
+                  <select onChange={handleSortChanged} defaultValue={sort}>
+                      <option value="title">{t('Title')}</option>
+                      <option value="author">{t('Author')}</option>
+                      <option value="popularity">{t('Popularity')}</option>
+                      <option value="rating">{t('Rating')}</option>
                   </select>
               </div>
           </div>
-          <div className={styles.booksfound}>Books found - <span>{totalItems}</span></div>
+          <div className={styles.booksfound}>{t('BooksFound')} - <span>{totalItems}</span></div>
 
           {
                !isBooksLoading ? (
@@ -77,7 +79,7 @@ const Content = ({ books, page, setPage, totalPages, totalItems, setSort, genres
                            </div>
                        </>
                    ) : (
-                       <div className={styles.nothingfound}>Nothing found</div>
+                       <div className={styles.nothingfound}>{t('NothingFound')}</div>
                    )
                    }</>
                ) : (

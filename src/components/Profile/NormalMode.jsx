@@ -6,7 +6,10 @@ const NormalMode = ({ styles, userData, handleLogOut, t, setIsUserEditingActive,
                   <img alt="Avatar Image" className={styles.avatar}
                        src={"https://localhost:7000/User/avatar/" + userData.avatar}/>
                   <div className={styles.verticalcontainer}>
-                      <div className={styles.username}>{userData.userName}</div>
+                      <div className="flex items-center">
+                        <div className={styles.username}>{userData.userName}</div>
+                          {userData.isAdmin && <div className="px-2 py-0.5 ml-3 text-xl bg-red-400 rounded text-white max-sm:text-base max-sm:px-1 max-sm:py-0">Admin</div>}
+                      </div>
                       <div
                           className={styles.regdate}>{t('UserSince')}: {new Date(userData.registrationDate).toLocaleDateString()}</div>
                   </div>

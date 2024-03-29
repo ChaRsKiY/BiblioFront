@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 50px 0;
-  min-height: 83vh;
+  min-height: calc(100svh - 100px);
 
   .background {
     position: absolute;
@@ -17,7 +17,7 @@
   }
 
   .innercontainer {
-    padding: 45px 80px;
+    padding: 45px 60px;
 
     @media screen and (max-width: 850px) {
       padding: 40px;
@@ -419,7 +419,7 @@
   margin: 55px 0 20px 0;
   padding: 15px 30px;
   display: flex;
-  box-shadow: 0 15px 30px rgba(122, 122, 122, 0.33);
+  box-shadow: 0 0 30px rgba(122, 122, 122, 0.13);
   border-radius: 35px;
   justify-content: space-evenly;
   align-items: center;

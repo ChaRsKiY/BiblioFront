@@ -1,9 +1,8 @@
 import styles from './LogReg.module.scss';
 import RegisterForm from "../../components/Misc/RegisterForm";
 import BackImage from "../../assets/images/back.png";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
 import {useTheme} from "../../utils/contexts/ThemeProvider";
 import {observer} from "mobx-react";
 import {useTranslation} from "react-i18next";
@@ -15,11 +14,15 @@ const Register = observer(({navigate}) => {
 
     const { t } = useTranslation();
 
+    useEffect(() => {
+        document.title = "Biblio - Register"
+    }, []);
+
     const register = async (formData) => {
         try {
             setIsLoading(true);
 
-            const response = await axios.post(SERVER_URL + 'User/register', {
+            const response = await axios.post('User/register', {
                 UserName: formData.username,
                 Email: formData.email,
                 Password: formData.password

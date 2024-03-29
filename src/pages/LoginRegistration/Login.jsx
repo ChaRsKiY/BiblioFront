@@ -3,11 +3,9 @@ import LoginForm from "../../components/Misc/LoginForm";
 import BackImage from "../../assets/images/back.png"
 import {useTheme} from "../../utils/contexts/ThemeProvider";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
 import Cookies from "js-cookie";
 import tokenStore from "../../stores/TokenStore";
-import {useState} from "react";
-import userStore from "../../stores/UserStore";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 const Login = ({navigate}) => {
@@ -16,11 +14,16 @@ const Login = ({navigate}) => {
     const [serverError, setServerError] = useState();
 
     const { t } = useTranslation();
+
+    useEffect(() => {
+        document.title = "Biblio - Login"
+    }, []);
+
     const login = async (formData) => {
         setIsLoading(true);
 
         try {
-            const response = await axios.post(SERVER_URL + 'User/login', {
+            const response = await axios.post('User/login', {
                 Email: formData.email,
                 Password: formData.password
             });

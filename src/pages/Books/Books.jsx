@@ -2,19 +2,26 @@ import Filters from "../../components/Books/Filters";
 import Content from "../../components/Books/Content";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
 import queryString from "query-string";
 import searchQueryStore from "../../stores/SearchQueryStore";
 import {observer} from "mobx-react";
+import {useTheme} from "../../utils/contexts/ThemeProvider";
+import {useSearchParams} from "react-router-dom";
+import styles from './Books.module.scss'
 
 const Books = observer(() => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const sortOrder = searchParams.get('sortOrder');
+    const queryGenres = searchParams.get('genres');
+
     const [books, setBooks] = useState([])
-    const [genres, setGenres] = useState()
+    const [genres, setGenres] = useState([])
     const [page, setPage] = useState(1)
-    const [sort, setSort] = useState('popularity')
+    const [sort, setSort] = useState(sortOrder || 'popularity')
     const [totalItems, setTotalItems] = useState()
     const [totalPages, setTotalPages] = useState()
-    const [selectedGenres, setSelectedGenres] = useState([])
+    const [selectedGenres, setSelectedGenres] = useState(queryGenres ? [queryGenres] : [])
     const [selectedStars, setSelectedStars] = useState([])
 
     const [isBooksLoading, setIsBooksLoading] = useState(true)
@@ -27,7 +34,7 @@ const Books = observer(() => {
         page: page,
         stars: selectedStars,
         genres: selectedGenres,
-        pageSize: 3
+        pageSize: 10
     };
 
     let abortController = new AbortController();
@@ -37,7 +44,7 @@ const Books = observer(() => {
         try {
             setIsBooksLoading(true)
             const queryStringParams = queryString.stringify(queryParams);
-            const result = await axios.get(`${SERVER_URL}Book?${queryStringParams}`, {signal})
+            const result = await axios.get(`Book?${queryStringParams}`, {signal})
 
             setTotalPages(result.data.totalPages)
             setTotalItems(result.data.totalItems)
@@ -51,7 +58,7 @@ const Books = observer(() => {
 
     const getGenres = async () => {
         try {
-            const result = await axios.get(`${SERVER_URL}Genre`)
+            const result = await axios.get(`Genre`)
             setGenres(result.data)
         } catch (e) {
             console.error(e)
@@ -59,33 +66,41 @@ const Books = observer(() => {
     }
 
     useEffect(() => {
-        getBooks()
-    }, [page, sort, selectedGenres, selectedStars]);
-
-    useEffect(() => {
+        document.title = "Biblio - Books"
         getGenres()
     }, []);
 
+    let searchTimer;
+
+    const fetchData = () => {
+        getBooks();
+    };
+
+    const cleanup = () => {
+        abortController.abort();
+        clearTimeout(searchTimer);
+    };
+
     useEffect(() => {
-        const cleanup = () => {
-            abortController.abort();
-            clearTimeout(searchTimer);
+        const fetchDataWithTimer = () => {
+            clearTimeout(searchTimer);  // Очищаем таймер перед установкой нового
+            searchTimer = setTimeout(() => {
+                fetchData();
+            }, 700);  // Уменьшаем задержку до 500 миллисекунд
         };
 
-        let searchTimer;
-
-        searchTimer = setTimeout(() => {
-            getBooks();
-        }, 1100);
+        fetchDataWithTimer();
 
         return cleanup;
-    }, [searchQuery]);
+    }, [searchQuery, page, sort, selectedGenres, selectedStars]);
+
+    const { theme } = useTheme()
 
     return (
-        <div style={{display: 'flex', marginTop: "80px"}}>
-            <Filters genres={genres} setSelectedGenres={setSelectedGenres} setSelectedStars={setSelectedStars}/>
+        <div style={{ backgroundColor: theme === 'light' ? 'white' : '#333', color: theme === 'light' ? '#000' : '#fff' }} className={styles.maincontainer}>
+            <Filters genres={genres} setSelectedGenres={setSelectedGenres} setSelectedStars={setSelectedStars} queryGenres={queryGenres} />
             <Content books={books} setPage={setPage} page={page} totalPages={totalPages} totalItems={totalItems}
-                     setSort={setSort} genres={genres} isBooksLoading={isBooksLoading} selectedGenres={selectedGenres}/>
+                     setSort={setSort} genres={genres} isBooksLoading={isBooksLoading} selectedGenres={selectedGenres} sort={sort} />
         </div>
     )
 })

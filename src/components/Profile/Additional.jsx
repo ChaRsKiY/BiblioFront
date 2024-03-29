@@ -2,15 +2,15 @@ import PassIcon from "../../assets/images/padlock.png"
 import MailIcon from "../../assets/images/mail.png"
 import {useState} from "react";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
 import tokenStore from "../../stores/TokenStore";
-import {Button} from "@mui/joy";
 import Loader from "../Misc/Loader";
-import validator from "validator";
 import {useTranslation} from "react-i18next";
+import {FaBackspace} from "react-icons/fa";
+import ProfileChangeEmailModal from "./ChangeEmailModal";
 
 const Additional = ({ styles }) => {
     const [isPasswordChanging, setIsPasswordChanging] = useState(false)
+    const [isEmailChanging, setIsEmailChanging] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
@@ -55,13 +55,24 @@ const Additional = ({ styles }) => {
         setNewPassword(e.target.value)
         setErrors({})
     }
+
+    const handleCloseSetPass = () => {
+        setNewPassword("")
+        setOldPassword("")
+        setErrors({})
+        setIsPasswordChanging(false)
+    }
+
+    const handleChangeEmail = async (data) => {
+
+    }
     
     const handlePasswordChange = async () => {
         if(validateForm()) {
             try {
                 setIsLoading(true)
 
-                await axios.put(SERVER_URL + "User/update-password", { oldPassword: oldPassword, newPassword: newPassword }, {
+                await axios.put("User/update-password", { oldPassword: oldPassword, newPassword: newPassword }, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
@@ -87,23 +98,28 @@ const Additional = ({ styles }) => {
                   isPasswordChanging ? (
                       !isLoading ? (
                           <>
-                              <div className={styles.inputgroup}>
-                                  <label className={styles.inputlabel}>Old password</label>
-                                  <input onChange={handleOldPasswordChange} autoComplete="off" name="OldPass" id="OldPass" className={styles.inputpass}
+                              <FaBackspace size={18} className="cursor-pointer dark:text-white" onClick={handleCloseSetPass} />
+                              <div className="flex-col">
+                                  <input onChange={handleOldPasswordChange} autoComplete="off" name="OldPass" id="OldPass"
+                                         placeholder="Old password"
+                                         className="border border-neutral-300 rounded px-2 py-1 outline-neutral-800 dark:bg-neutral-600 dark:text-white"
                                          type="password"/>
                                   <div></div>
                                   {errors?.oldPassword && <span>{errors.oldPassword}</span>}
                                   {serverError === "invalidOldPassword" && <span>Invalid Password</span>}
                               </div>
-                              <div className={styles.inputgroup}>
-                                  <label className={styles.inputlabel}>New password</label>
-                                  <input onChange={handleNewPasswordChange} autoComplete="off" name="NewPass" id="NewPass" className={styles.inputpass}
+                              <div className="">
+                                  <input onChange={handleNewPasswordChange} autoComplete="off" name="NewPass" id="NewPass"
+                                         placeholder="New password"
+                                         className="border border-neutral-300 rounded px-2 py-1 outline-neutral-800 dark:bg-neutral-600 dark:text-white"
                                          type="text"/>
                                   <div></div>
                                   {errors?.newPassword && <span>{errors.newPassword}</span>}
                               </div>
 
-                              <Button variant='soft' color="success" onClick={() => handlePasswordChange()}>Change</Button>
+                              <button
+                                  className="bg-orange-300 rounded text-white px-2 py-1.5 dark:bg-orange-400 hover:bg-orange-400 dark:hover:bg-orange-500"
+                                  onClick={() => handlePasswordChange()}>Change</button>
                           </>
                       ) : (
                           <Loader />
@@ -112,12 +128,13 @@ const Additional = ({ styles }) => {
                       <>
                           <div onClick={() => setIsPasswordChanging(true)}>
                               <img alt="Change Icon" src={PassIcon}/>
-                              <div>Change Password</div>
+                              <div>{t('ChangePassword')}</div>
                           </div>
-                          <div>
-                          <img alt="Change Icon" src={MailIcon}/>
-                              <div>Change Email</div>
+                          <div onClick={() => setIsEmailChanging(true)}>
+                              <img alt="Change Icon" src={MailIcon}/>
+                              <div>{t('ChangeEmail')}</div>
                           </div>
+                          {isEmailChanging && <ProfileChangeEmailModal open={isEmailChanging} setOpen={setIsEmailChanging} onConfirm={handleChangeEmail} />}
                       </>
                   )
               }

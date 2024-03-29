@@ -5,11 +5,10 @@ import LibraryImg from '../../assets/images/library.png'
 import {colors} from "../../assets/styles/colors";
 import tokenStore from "../../stores/TokenStore";
 import getProfileData from "../../utils/getProfileData";
-import updateUserData from "../../utils/updateUserData";
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../utils/contexts/ThemeProvider";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
+import ProfileBooks from "../../components/Profile/ProfileBooks";
 
 const Profile = () => {
     const [currentPage, setCurrentPage] = useState(0)
@@ -22,6 +21,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
+        document.title = "Biblio - Profile"
         fetch()
     }, [])
 
@@ -31,45 +31,6 @@ const Profile = () => {
 
     const { t } = useTranslation();
     const { theme } = useTheme();
-
-    const send5 = async () => {
-        try {
-            await axios.get(SERVER_URL + "User/email-change-request", {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    const send = async () => {
-        try {
-            await axios.post(SERVER_URL + "User/email-change", { email: "mtovkay@gmail.com", code: "6959ee67" },{
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-        } catch (e) {
-            console.error(e)
-        }
-    }
-
-    const send7 = async () => {
-        try {
-            await axios.post(SERVER_URL + "User/email-change-confirm", { email: "mtovkai@gmail.com", code: "5b0724b2" },{
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-        } catch (e) {
-            console.error(e)
-        }
-    }
 
   return (
       <div className={styles.container} style={{ background: theme === 'light' ? '#fff' : '#333', color: theme === 'light' ? '#000' : '#fff' }}>
@@ -81,15 +42,12 @@ const Profile = () => {
                   </div>
                   <div className={styles.line}/>
                   <div className={styles.title} onClick={() => handlePageChange(1)}
-                       style={currentPage === 1 ? {color: colors.ORANGE} : {}}>{t('Settings')}
-                  </div>
-                  <div className={styles.line}/>
-                  <div className={styles.title} onClick={() => handlePageChange(2)}
-                       style={currentPage === 2 ? {color: colors.ORANGE} : {}}>{t('Friends')}
+                       style={currentPage === 1 ? {color: colors.ORANGE} : {}}>{t('Books')}
                   </div>
               </div>
               <div className={styles.innercontainer}>
                   {currentPage === 0 && <Main styles={styles} userData={userData} t={t} theme={theme} fetch={fetch} />}
+                  {currentPage === 1 && <ProfileBooks />}
               </div>
           </div>
       </div>

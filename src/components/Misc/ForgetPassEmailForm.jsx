@@ -17,7 +17,7 @@ const ForgetPassEmailForm = ({
                              }) => {
     const {t} = useTranslation();
     const {theme} = useTheme();
-    const [email, setEmail] = useState()
+    const [email, setEmail] = useState("")
 
     const [emailError, setEmailError] = useState("")
 

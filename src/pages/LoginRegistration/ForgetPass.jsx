@@ -5,10 +5,8 @@ import BackImage from "../../assets/images/back.png";
 import {useTheme} from "../../utils/contexts/ThemeProvider";
 import {useTranslation} from "react-i18next";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ForgetPassPassChange from "../../components/Misc/ForgetPassPassChange";
-import {set} from "mobx";
 
 const ForgetPass = ({navigate}) => {
     const location = useLocation();
@@ -21,10 +19,14 @@ const ForgetPass = ({navigate}) => {
     const [isEmailVerifying, setIsEmailVerifying] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
+    useEffect(() => {
+        document.title = "Biblio - Forget Pass"
+    }, []);
+
     const changePassword = async (token, email, password) => {
         try {
             setIsLoading(true)
-            await axios.post(SERVER_URL + "User/reset-password", { Token: token, Password: password, Email: email })
+            await axios.post("User/reset-password", { Token: token, Password: password, Email: email })
             setServerMessage("success")
         } catch (e) {
             setServerError("Error")
@@ -36,7 +38,7 @@ const ForgetPass = ({navigate}) => {
     const forgetPass = async (email) => {
         try {
             setIsLoading(true)
-            await axios.post(SERVER_URL + "User/password-reset-request", {Email: email})
+            await axios.post("User/password-reset-request", {Email: email})
             setIsEmailVerifying(true)
         } catch (e) {
             if (e.response.status === 400) {
@@ -56,7 +58,7 @@ const ForgetPass = ({navigate}) => {
             setIsLoading(true)
             setServerError("")
             setServerMessage("")
-            await axios.post(SERVER_URL + "User/password-reset-request", {Email: email})
+            await axios.post("User/password-reset-request", {Email: email})
             setServerMessage(t('EmailHasBeenSent'))
         } catch (e) {
             if (e.response.status === 400) {

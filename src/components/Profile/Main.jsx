@@ -7,7 +7,6 @@ import {useState} from "react";
 import EditMode from "./EditMode";
 import NormalMode from "./NormalMode";
 import Additional from "./Additional";
-
 const Main = ({styles, userData, t, theme, fetch}) => {
     const navigate = useNavigate()
     const [isUserEditingActive, setIsUserEditingActive] = useState(false)

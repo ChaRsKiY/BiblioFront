@@ -1,6 +1,11 @@
-import Loader from "../../components/Misc/Loader";
+import {useEffect} from "react";
 
 const GlobalLoading = () => {
+
+    useEffect(() => {
+        document.title = "Biblio"
+    }, []);
+
     return (
         <div className="socketcontainer">
             <div className="loader">

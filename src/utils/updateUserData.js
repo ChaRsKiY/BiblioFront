@@ -1,5 +1,4 @@
 import axios from "axios";
-import { SERVER_URL } from "../data/urls";
 
 const updateUserData = async (token, changeData) => {
     try {
@@ -10,7 +9,7 @@ const updateUserData = async (token, changeData) => {
         });
 
         if (token) {
-            await axios.put(SERVER_URL + "User/update",
+            await axios.put("User/update",
                 formDataToSubmit,
                 {
                     headers: {

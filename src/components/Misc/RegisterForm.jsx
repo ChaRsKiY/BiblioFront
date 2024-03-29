@@ -5,8 +5,6 @@ import validator from "validator";
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../utils/contexts/ThemeProvider";
 import Loader from "./Loader";
-import {SERVER_URL} from "../../data/urls";
-import axios from "axios";
 import EmailVerification from "./EmailVerification";
 
 const LoginForm = ({register, serverError, setServerError, isLoading, isEmailConfirming}) => {

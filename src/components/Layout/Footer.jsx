@@ -2,15 +2,18 @@ import {colors} from "../../assets/styles/colors";
 import BookLogo from "../../assets/images/book-512.png";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {useTheme} from "../../utils/contexts/ThemeProvider";
 
 const Footer = ({ styles }) => {
     const { t } = useTranslation();
 
+    const { theme } = useTheme()
+
     return (
-        <footer className={styles.footer} style={{ backgroundColor: colors.ORANGE, color: colors.LIGHT_GRAY }}>
+        <footer className={styles.footer} style={{ backgroundColor: theme === 'light' ? colors.ORANGE : colors.DARK_ORANGE, color: colors.LIGHT_GRAY }}>
             <div className={styles.small_container}>
                 <img alt="Biblio Logo" src={BookLogo} />
-                <div>© 2023. {t('RightsReserved')}.</div>
+                <div>© {new Date().getFullYear()}. {t('RightsReserved')}.</div>
             </div>
 
             <div className={styles.terms}>

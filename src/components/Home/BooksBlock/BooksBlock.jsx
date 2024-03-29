@@ -1,29 +1,30 @@
 import styles from './BooksBlock.module.scss';
 import {colors} from "../../../assets/styles/colors";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import Loader from "../../Misc/Loader";
 import {AspectRatio, Card, Skeleton, Typography} from "@mui/joy";
 import LazyImage from "../../Books/LazyImage";
-import {useState} from "react";
 
-const BooksBlock = ({books, title, category}) => {
+const BooksBlock = ({books, title, type}) => {
     const {t} = useTranslation();
+    const navigate = useNavigate()
 
     const components = [1, 2, 3, 4, 5]
 
     return (
         <div className={styles.container}>
             <div className={styles.title} style={{color: colors.ORANGE}}>{title}</div>
-            {books && books.length ? (
+            {books ? books.length ? (
                 <div className={styles.books}>
                     {books.map(el => (
-                        <div key={el.id}>
+                        <div key={el.id} onClick={() => navigate("/books/" + el.id)} className="cursor-pointer">
                             <LazyImage alt={el?.title} src={`https://localhost:7000/Book/bookcover/${el.coverImage}`}/>
                             <div>{el?.title}</div>
                         </div>
                     ))}
                 </div>
+            ) : (
+                <div className="text-center py-4 text-xl font-[Kanit]">Nothing found</div>
             ) : (
                 <div className={styles.books}>
                     {components.map((el) => (
@@ -45,7 +46,7 @@ const BooksBlock = ({books, title, category}) => {
                     ))}
                 </div>
             )}
-            <Link to={'/' + category} style={{color: colors.GRAY}}>{t('SeeMore')}</Link>
+            <Link to={'/books?sortOrder=' + type} style={{color: colors.GRAY}}>{t('SeeMore')}</Link>
         </div>
     )
 }

@@ -1,6 +1,4 @@
-import styles from "./LogRegForm.module.scss";
 import axios from "axios";
-import {SERVER_URL} from "../../data/urls";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -13,7 +11,7 @@ const EmailVerification = ({ styles, errors, setErrors, email, isAlready }) => {
             setIsLoading(true)
             setErrors({})
             setMessage("")
-            await axios.post(SERVER_URL + "User/resendverificationcode", {Email: email})
+            await axios.post("User/resendverificationcode", {Email: email})
             setMessage(t('MessageHasBeenSent'))
         } catch (e) {
             if (e.response.status === 400) {

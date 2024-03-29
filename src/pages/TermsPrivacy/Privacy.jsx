@@ -1,10 +1,15 @@
 import styles from './TermsPrivacy.module.scss'
 import {useTranslation} from "react-i18next";
 import {useTheme} from "../../utils/contexts/ThemeProvider";
+import {useEffect} from "react";
 
 const Terms = () => {
     const { t } = useTranslation()
     const { theme } = useTheme()
+
+    useEffect(() => {
+        document.title = "Biblio - Privacy"
+    }, []);
 
     return (
         <div className={styles.container} style={{ background: theme === 'light' ? '#fff' : '#333', color: theme === 'light' ? '#000' : '#fff' }}>
@@ -12,8 +17,8 @@ const Terms = () => {
 
             <div className={styles.additional}>{t('PrivacyAdditional')}</div>
 
-            <ol>
-                <li>{t('InformationWeCollect')}:
+            <ol className="space-y-4">
+                <li >{t('InformationWeCollect')}:
                     <p>{t('InformationWeCollectText')}</p>
                 </li>
                 <li>{t('HowWeUseYourInformation')}:
